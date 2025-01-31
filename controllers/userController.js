@@ -59,6 +59,9 @@ export const logOutUser = catchError(async (req, res, next) => {
     .status(200)
     .cookie("token", null, {
       expires: new Date(Date.now()),
+      httpOnly:true,
+      secure:true,
+      sameSite:true,
     })
     .json({
       success: true,
@@ -97,7 +100,7 @@ export const changePassword = catchError(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    messageL: "password Change successfully",
+    message: "password Change successfully",
   });
 });
 
@@ -106,7 +109,6 @@ export const changePassword = catchError(async (req, res, next) => {
 export const updateEmailOrName = catchError(async (req, res, next) => {
   const { newName, newEmail } = req.body;
   const user = req.user;
-  //  console.log(user.name)
 
   if (newName) {
     await User.findByIdAndUpdate(user._id, {
@@ -124,6 +126,13 @@ export const updateEmailOrName = catchError(async (req, res, next) => {
     res.status(200).json({
       success: true,
       message: "User Email Updated !!",
+    });
+  }
+
+  if(!newName && !newEmail){
+    res.status(400).json({
+      success: false,
+      message: "Plz update any field !!",
     });
   }
 });

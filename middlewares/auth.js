@@ -9,6 +9,7 @@ export const isAuthenticate = catchError(async (req, res, next) => {
 
   const decoded = Jwt.verify(token, process.env.JWT_SECREATE);
 
+  //this will set for find the req.user and check the request is valid or note and send the user details...
   req.user = await User.findById(decoded.id)
     .select("-password")
     .select("-salt");
