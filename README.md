@@ -97,3 +97,5 @@ project-folder/
 ## License
 This project is licensed under the MIT License.
 
+
+## For login PlZ use email:rinku@gmail.com , password:123456
